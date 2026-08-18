@@ -1,0 +1,6 @@
+*.class
+*.o
+out/
+cpp/zigzag_conversion
+tests/test_zigzag_conversion
+__pycache__/
