@@ -59,6 +59,31 @@ return "".join(rows)
 
 Starting `direction` at `-1` is a small trick: the first character always lands on row `0`, which immediately triggers the flip to `+1` — so the second character correctly moves down to row `1`, without needing a separate "first step" special case.
 
+### Worked example
+
+Tracing the code above on `s = "PAYPALISHIRING"`, `numRows = 4`:
+
+| char | `currentRow` before | write to | boundary? | `direction` after | `currentRow` after |
+|---|---|---|---|---|---|
+| P | 0 | `rows[0] += 'P'` → `"P"` | yes (row 0) | flips to `1` | 1 |
+| A | 1 | `rows[1] += 'A'` → `"A"` | no | stays `1` | 2 |
+| Y | 2 | `rows[2] += 'Y'` → `"Y"` | no | stays `1` | 3 |
+| P | 3 | `rows[3] += 'P'` → `"P"` | yes (row 3) | flips to `-1` | 2 |
+| A | 2 | `rows[2] += 'A'` → `"YA"` | no | stays `-1` | 1 |
+| L | 1 | `rows[1] += 'L'` → `"AL"` | no | stays `-1` | 0 |
+| I | 0 | `rows[0] += 'I'` → `"PI"` | yes (row 0) | flips to `1` | 1 |
+| S | 1 | `rows[1] += 'S'` → `"ALS"` | no | stays `1` | 2 |
+| H | 2 | `rows[2] += 'H'` → `"YAH"` | no | stays `1` | 3 |
+| I | 3 | `rows[3] += 'I'` → `"PI"` | yes (row 3) | flips to `-1` | 2 |
+| R | 2 | `rows[2] += 'R'` → `"YAHR"` | no | stays `-1` | 1 |
+| I | 1 | `rows[1] += 'I'` → `"ALSI"` | no | stays `-1` | 0 |
+| N | 0 | `rows[0] += 'N'` → `"PIN"` | yes (row 0) | flips to `1` | 1 |
+| G | 1 | `rows[1] += 'G'` → `"ALSIG"` | no | stays `1` | 2 (loop ends) |
+
+The pointer bounces `0→1→2→3` (hits bottom, flips), `3→2→1→0` (hits top, flips), `0→1→2→3` (flips again), `3→2→1→0` (flips again), then `0→1` as the string runs out mid-descent — perfectly fine, since the algorithm never assumes the string ends exactly on a boundary.
+
+Final buckets: `rows[0]="PIN"`, `rows[1]="ALSIG"`, `rows[2]="YAHR"`, `rows[3]="PI"`. Joined: `"PIN" + "ALSIG" + "YAHR" + "PI"` = **`"PINALSIGYAHRPI"`** — matches the expected output.
+
 **Edge case:** if `numRows == 1`, row `0` and row `numRows - 1` are the same row, so the bounce logic would try to push `currentRow` to a row that doesn't exist. Handle it up front: with only one row, there's no zigzag at all, so the answer is just `s` unchanged.
 
 **Complexity:** `O(n)` time — one pass over the string — and `O(n)` space for the row buckets, which together hold every character exactly once.
