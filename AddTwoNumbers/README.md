@@ -4,6 +4,8 @@ A classic linked-list problem, implemented in **Python**, **Java**, and **C++**.
 
 ## Problem
 
+**Difficulty:** Medium (LeetCode #2)
+
 You are given two non-empty linked lists representing two non-negative integers. The digits are stored in **reverse order** (the ones digit comes first), and each node contains a single digit.
 
 Add the two numbers and return the sum as a linked list, in the same reversed format.

@@ -4,6 +4,8 @@ A string-simulation problem, implemented in **Python**, **Java**, and **C++**.
 
 ## Problem
 
+**Difficulty:** Medium (LeetCode #6)
+
 Given a string `s` and an integer `numRows`, write `s` in a zigzag pattern across `numRows` rows — straight down one column, then diagonally up to the next column, repeating — then read the result back out row by row and concatenate.
 
 ### Example

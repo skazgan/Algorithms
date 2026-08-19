@@ -4,6 +4,8 @@ A classic string problem, implemented in **Python**, **Java**, and **C++**.
 
 ## Problem
 
+**Difficulty:** Medium (LeetCode #5)
+
 Given a string `s`, return the longest substring of `s` that reads the same forwards and backwards (a palindrome).
 
 ### Example
