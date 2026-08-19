@@ -1,0 +1,6 @@
+*.class
+*.o
+out/
+cpp/reverse_integer
+tests/test_reverse_integer
+__pycache__/
