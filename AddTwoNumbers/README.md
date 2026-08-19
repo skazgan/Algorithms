@@ -36,6 +36,36 @@ Walk both lists at the same time, one node per step — exactly like adding two 
 4. Advance both pointers.
 5. Keep going while *either* list still has nodes, *or* there's a carry left over (e.g. `9 + 9 = 18` needs a final extra digit).
 
+```python
+dummy = ListNode()
+curr = dummy
+carry = 0
+
+while l1 or l2 or carry:
+    v1 = l1.val if l1 else 0
+    v2 = l2.val if l2 else 0
+    total = v1 + v2 + carry
+    carry, digit = divmod(total, 10)
+    curr.next = ListNode(digit)
+    curr = curr.next
+    l1 = l1.next if l1 else None
+    l2 = l2.next if l2 else None
+
+return dummy.next
+```
+
+### Worked example
+
+Tracing the code above on `l1 = 2 -> 4 -> 3` (342), `l2 = 5 -> 6 -> 4` (465):
+
+| step | `l1` digit | `l2` digit | carry in | total | carry out | digit written |
+|---|---|---|---|---|---|---|
+| 1 | 2 | 5 | 0 | 7 | 0 | 7 |
+| 2 | 4 | 6 | 0 | 10 | 1 | 0 |
+| 3 | 3 | 4 | 1 | 8 | 0 | 8 |
+
+After step 3, both `l1` and `l2` are exhausted and `carry` is `0`, so the loop ends. Result list: `7 -> 0 -> 8`, matching `342 + 465 = 807`.
+
 **Complexity:** `O(max(n, m))` time, `O(max(n, m))` space, where `n` and `m` are the lengths of the two lists.
 
 ## Why "reversed order" matters

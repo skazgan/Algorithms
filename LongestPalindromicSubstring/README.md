@@ -41,6 +41,20 @@ def expand(s, left, right):
 
 Run `expand(s, i, i)` (odd center) and `expand(s, i, i + 1)` (even center) for every index `i`, and keep whichever result is widest.
 
+### Worked example
+
+Tracing every center on `s = "babad"` (`start, end = 0, 0` initially — the trivial one-character palindrome `"b"`):
+
+| `i` | odd center `expand(i, i)` | even center `expand(i, i+1)` | best so far |
+|---|---|---|---|
+| 0 | `(0, 0)` → `"b"`, width 0 — no update | mismatch (`'b'` vs `'a'`) — ignored | `(0, 0)` |
+| 1 | `(0, 2)` → `"bab"`, width 2 — **updates best** | mismatch (`'a'` vs `'b'`) — ignored | `(0, 2)` |
+| 2 | `(1, 3)` → `"aba"`, width 2 — tie, no update | mismatch (`'b'` vs `'a'`) — ignored | `(0, 2)` |
+| 3 | `(3, 3)` → `"a"`, width 0 — no update | mismatch (`'a'` vs `'d'`) — ignored | `(0, 2)` |
+| 4 | `(4, 4)` → `"d"`, width 0 — no update | out of bounds — ignored | `(0, 2)` |
+
+Final `start, end = (0, 2)` → `s[0:3]` = **`"bab"`**. Note `"aba"` (found at `i=2`) is an equally valid answer per the problem, but the `>` comparison only replaces the best-so-far on a *strictly* wider match, so the first one found — `"bab"` — wins the tie.
+
 **Complexity:** `O(n²)` time — `n` centers, each expansion costing up to `O(n)` — and `O(1)` extra space, since it only ever tracks a handful of index pointers.
 
 ## Real-world analogy
