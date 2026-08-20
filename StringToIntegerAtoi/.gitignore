@@ -1,0 +1,6 @@
+*.class
+*.o
+out/
+cpp/string_to_integer_atoi
+tests/test_string_to_integer_atoi
+__pycache__/
